@@ -1,0 +1,22 @@
+import functools
+
+def yaml(func):
+    @functools.wraps(func)
+    def wrapped(*args):
+        result = func(*args)
+        a = "-"
+        for i in result:
+            for j in i:
+                a += " " + str(j)
+            a += "\n" + "-"
+        a = a[:-2]
+        return a
+    return wrapped
+
+
+@yaml
+def ff(*args):
+    return args
+
+print(ff([5,5,6,3], [1,4,2,9,7], ["Яблоко","Груша"]))
+print(ff.__name__)
